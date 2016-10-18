@@ -24,16 +24,38 @@ def PRGA(S):
         K = S[(S[i] + S[j]) % 256]
         yield K
 
-
 def streamcipher(key):
     S = KSA(key)
     #print(S)
     return PRGA(S)
 
+def convert(s):
+    return [ord(c) for c in s]
+
+def encrypt(key, plaintext):
+    keystream = streamcipher(key)
+    return ''.join(["%02X" % (ord(c) ^ next(keystream)) for c in plaintext])
+
+# def decrypt(key, ciphertext):
+#     keystream = streamcipher(key)
+#     test = ''
+#     n = 0
+#     while n < len(ciphertext):
+#         x = int(ciphertext[n:n+2], 16)
+#         # sys.stdout.write( chr(x ^ next(keystream)) )
+#         test = test + chr(x ^ next(keystream))
+#         n += 2
+#     return test
+
+def decrypt(key, ciphertext):
+    # print(key, ciphertext)
+    keystream = streamcipher(key)
+    return ''.join([chr(int(ciphertext[n:n+2], 16) ^ next(keystream)) for n in range(len(ciphertext)) if n % 2 == 0])
+
+
 
 if __name__ == '__main__':
     import sys
-
     file = open(sys.argv[2], 'r')
     key = file.read()
     file.close()
@@ -44,20 +66,20 @@ if __name__ == '__main__':
     else:                   #decryption
         ciphertext = file.read()
     file.close()
-
-
-    def convert(s):
-        return [ord(c) for c in s]
-
+    
     key = convert(key)
     keystream = streamcipher(key)
 
     if sys.argv[1] == 'e':  #encryption
-        for c in plaintext:
-            sys.stdout.write("%02X" % (ord(c) ^ next(keystream)))
+        # for c in plaintext:
+        #     sys.stdout.write("%02X" % (ord(c) ^ next(keystream)))
+        # print()
+        print(encrypt(key, plaintext))
     else:                   #decryption
-        n = 0
-        while n < len(ciphertext):
-            x = int(ciphertext[n:n+2], 16)
-            sys.stdout.write( chr(x ^ next(keystream)) )
-            n += 2
+        # n = 0
+        # while n < len(ciphertext):
+        #     x = int(ciphertext[n:n+2], 16)
+        #     sys.stdout.write( chr(x ^ next(keystream)) )
+        #     n += 2
+        # print()
+        print(decrypt(key, ciphertext))
