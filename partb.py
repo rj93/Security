@@ -12,12 +12,12 @@ if __name__ == '__main__':
 
 	start = int(sys.argv[2])
 	end = int(sys.argv[3])
-	orginial = sys.argv[4]
+	original = sys.argv[4]
 	replacemnet = sys.argv[5]
 	key, plaintext = brute_force(ciphertext)
 
-	if (plaintext[start-1:end] == orginial):
+	if (plaintext[start-1:end] == original):
 		plaintext = plaintext[:start-1] + replacemnet + plaintext[end:]
 		print(encrypt(convert(key), plaintext))
 	else:
-		print("Could not find '{}' in '{}' at bytes {} - {}".format(orginial, plaintext, start, end))
+		print("Could not find '{}' in '{}' at bytes {} - {}".format(original, plaintext, start, end))
