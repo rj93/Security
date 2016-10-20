@@ -33,6 +33,7 @@ def convert(s):
     return [ord(c) for c in s]
 
 def encrypt(key, plaintext):
+    # print(key, plaintext)
     keystream = streamcipher(key)
     return ''.join(["%02X" % (ord(c) ^ next(keystream)) for c in plaintext])
 

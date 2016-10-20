@@ -7,7 +7,7 @@ from cipher import convert, decrypt
 KEY_LENGTH = 6
 CHARS = string.ascii_lowercase
 
-regex = re.compile('^[\w|\s]+$')
+regex = re.compile('^[\w\s.]+$')
 
 def brute_force(ciphertext, key_length=KEY_LENGTH):
 	products = product(CHARS, repeat=key_length)
