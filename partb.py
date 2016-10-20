@@ -15,8 +15,9 @@ if __name__ == '__main__':
 	orginial = sys.argv[4]
 	replacemnet = sys.argv[5]
 	key, plaintext = brute_force(ciphertext)
+
 	if (plaintext[start-1:end] == orginial):
-		plaintext = plaintext.replace(orginial, replacemnet)
+		plaintext = plaintext[:start-1] + replacemnet + plaintext[end:]
 		print(encrypt(convert(key), plaintext))
 	else:
 		print("Could not find '{}' in '{}' at bytes {} - {}".format(orginial, plaintext, start, end))
