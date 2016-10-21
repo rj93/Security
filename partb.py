@@ -1,4 +1,4 @@
-#python partb.py ciphertext.txt 10 15 100GBP 999EUR
+# python partb.py ciphertext.txt 10 15 100GBP 999EUR
 
 from parta import brute_force
 from cipher import convert, encrypt
@@ -14,7 +14,7 @@ if __name__ == '__main__':
 	end = int(sys.argv[3])
 	original = sys.argv[4]
 	replacemnet = sys.argv[5]
-	key, plaintext, count = brute_force(ciphertext)
+	key, plaintext, keys = brute_force(ciphertext)
 
 	if (plaintext[start-1:end] == original):
 		plaintext = plaintext[:start-1] + replacemnet + plaintext[end:]

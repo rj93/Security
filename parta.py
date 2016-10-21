@@ -30,9 +30,9 @@ if __name__ == '__main__':
 
 	start = time.time()
 	key, plaintext, keys = brute_force(ciphertext)
-	time = round(time.time() - start, 2)
+	totalTime = round(time.time() - start, 2)
 	keysPerSec = round(keys / time)
 
 	print(key)
 	print(plaintext)
-	print("time = {}s, keys = {}, keys/second = {}".format(time, keys, keysPerSec))
+	print("time = {}s, keys = {}, keys/second = {}".format(totalTime, keys, keysPerSec))
