@@ -55,7 +55,6 @@ if __name__ == '__main__':
     file.close()
     
     key = convert(key)
-    keystream = streamcipher(key)
 
     if sys.argv[1] == 'e':  #encryption
         print(encrypt(key, plaintext))
