@@ -6,15 +6,14 @@ from cipher import convert, encrypt
 if __name__ == '__main__':
 	import sys
 	
-	file = open(sys.argv[1], 'r')
-	ciphertext = file.read()
-	file.close()
+	with open(sys.argv[1], 'r') as f:
+		ciphertext = f.read()
 
 	start = int(sys.argv[2])
 	end = int(sys.argv[3])
 	original = sys.argv[4]
 	replacemnet = sys.argv[5]
-	key, plaintext, keys = brute_force(ciphertext)
+	key, plaintext = brute_force(ciphertext)
 
 	if (plaintext[start-1:end] == original):
 		plaintext = plaintext[:start-1] + replacemnet + plaintext[end:]
