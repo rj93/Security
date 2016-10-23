@@ -10,7 +10,7 @@ def convert_hex(text):
 	return [int(text[n:n+2], 16) for n in range(len(text)) if n % 2 == 0]
 
 def xor(l1, l2):
-	return [a ^ b for a,b in zip(l1,l2)]
+	return [a ^ b for a, b in zip(l1, l2)]
 
 if __name__ == '__main__':
 	import sys
