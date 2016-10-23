@@ -4,8 +4,7 @@ import string, re, time
 from itertools import product
 from cipher import convert, decrypt
 
-
-KEY_LENGTH = 6
+KEY_LENGTH = 4
 CHARS = string.ascii_lowercase
 
 regex = re.compile('^[\w\s.]+$')
@@ -22,7 +21,6 @@ def brute_force(ciphertext, key_length=KEY_LENGTH, count=False):
 				return key, plaintext
 			else:
 				return key, plaintext, attempts
-
 
 if __name__ == '__main__':
 	import sys
