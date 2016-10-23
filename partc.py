@@ -9,8 +9,8 @@ def read_file(file):
 def convert_hex(text):
 	return [int(text[n:n+2], 16) for n in range(len(text)) if n % 2 == 0]
 
-def xor(l1, l2):
-	return [a ^ b for a, b in zip(l1, l2)]
+def xor(l1, l2, l3):
+	return [a ^ b ^ c for a, b, c in zip(l1, l2, l3)]
 
 if __name__ == '__main__':
 	import sys
@@ -23,4 +23,4 @@ if __name__ == '__main__':
 	c2 = convert_hex(ciphertext2)
 	p1 = convert(plaintext1)
 
-	print(''.join([chr(c) for c in xor(xor(c1, c2), p1)]))
+	print(''.join([chr(c) for c in xor(c1, c2, p1)]))
