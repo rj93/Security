@@ -4,7 +4,7 @@ import string, re, time
 from itertools import product
 from cipher import convert, decrypt
 
-KEY_LENGTH = 4
+KEY_LENGTH = 6
 CHARS = string.ascii_lowercase
 
 regex = re.compile('^[\w\s.]+$')
