@@ -8,6 +8,14 @@ def convert_hex(text):
 def xor(l1, l2, l3):
 	return [a ^ b ^ c for a, b, c in zip(l1, l2, l3)]
 
+def replace(ciphertext, start, end, original, replacement):
+	c = convert_hex(ciphertext[start:end])
+	p = convert(original)
+	r = convert(replacement)
+
+	replacementHex = ''.join(["%02X" % c for c in xor(p, c, r)])
+	return ciphertext[:start] + replacementHex + ciphertext[end:]
+
 if __name__ == '__main__':
 	import sys
 	
@@ -17,11 +25,6 @@ if __name__ == '__main__':
 	start = (int(sys.argv[2]) - 1) * 2
 	end = int(sys.argv[3]) * 2
 	original = sys.argv[4]
-	replacemnet = sys.argv[5]
+	replacement = sys.argv[5]
 
-	c = convert_hex(ciphertext[start:end])
-	p = convert(original)
-	r = convert(replacemnet)
-
-	replacement_cipher = ''.join(["%02X" % c for c in xor(p, c, r)])
-	new_ciphertext = ciphertext[:start] + replacement_cipher + ciphertext[end:]
+	print(replace(ciphertext, start, end, original, replacement))
