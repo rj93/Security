@@ -2,6 +2,10 @@
 
 from cipher import convert, encrypt
 
+def read_file(file):
+	with open(file, 'r') as f:
+		return f.read()
+
 def convert_hex(text):
 	return [int(text[n:n+2], 16) for n in range(len(text)) if n % 2 == 0]
 
@@ -19,12 +23,9 @@ def replace(ciphertext, start, end, original, replacement):
 if __name__ == '__main__':
 	import sys
 	
-	with open(sys.argv[1], 'r') as f:
-		ciphertext = f.read()
-
+	ciphertext = read_file(sys.argv[1])
 	start = (int(sys.argv[2]) - 1) * 2
 	end = int(sys.argv[3]) * 2
-	original = sys.argv[4]
-	replacement = sys.argv[5]
 
-	print(replace(ciphertext, start, end, original, replacement))
+	newCiphertext = replace(ciphertext, start, end, sys.argv[4], sys.argv[5])
+	print(newCiphertext)

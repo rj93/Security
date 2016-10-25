@@ -1,11 +1,7 @@
 # python partc.py ciphertextfileA ciphertextfileB plaintextfileA
 
 from cipher import convert
-from partb import xor, convert_hex
-
-def read_file(file):
-	with open(file, 'r') as f:
-		return f.read()
+from partb import xor, convert_hex, read_file
 
 def recover_plaintext(ciphertext1, ciphertext2, plaintext1):
 	c1 = convert_hex(ciphertext1)
@@ -16,5 +12,9 @@ def recover_plaintext(ciphertext1, ciphertext2, plaintext1):
 if __name__ == '__main__':
 	import sys
 
-	plaintext = recover_plaintext(read_file(sys.argv[1]), read_file(sys.argv[2]), read_file(sys.argv[3]))
+	ciphertext1 = read_file(sys.argv[1])
+	ciphertext2 = read_file(sys.argv[2])
+	plaintext1 = read_file(sys.argv[3])
+
+	plaintext = recover_plaintext(, read_file(sys.argv[2]), read_file(sys.argv[3]))
 	print(plaintext)
