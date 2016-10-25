@@ -10,6 +10,10 @@ CHARS = string.ascii_lowercase
 regex = re.compile('^[\w\s.]+$')
 
 def brute_force(ciphertext, key_length=KEY_LENGTH, count=False):
+	""" brute forces the key of the ciphertext.
+		Returns the key, the plaintext, 
+		and dependant on the count flag how many attempts it took. """
+		
 	products = product(CHARS, repeat=key_length)
 	attempts = 0
 	for chars in products:
