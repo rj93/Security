@@ -2,12 +2,20 @@
 
 import string, re, time
 from itertools import product
-from cipher import convert, streamcipher
+from cipher import streamcipher
 
 KEY_LENGTH = 6
 CHARS = string.ascii_lowercase
 
 regex = re.compile('^[\w\s.]+$')
+
+def read_file(file):
+	""" returns the contents of a file """
+	with open(file, 'r') as f:
+		return f.read()
+
+def convert(s):
+    return [ord(c) for c in s]
 
 def decrypt(key, ciphertext):
     keystream = streamcipher(key)
@@ -33,8 +41,7 @@ def brute_force(ciphertext, key_length=KEY_LENGTH, count=False):
 if __name__ == '__main__':
 	import sys
 	
-	with open(sys.argv[1], 'r') as f:
-		ciphertext = f.read()
+	ciphertext = read_file(sys.argv[1])
 
 	start = time.time()
 	key, plaintext, keys = brute_force(ciphertext, count=True)

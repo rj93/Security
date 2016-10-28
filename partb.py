@@ -1,11 +1,6 @@
 # python partb.py ciphertext.txt 10 15 100GBP 999EUR
 
-from cipher import convert, encrypt
-
-def read_file(file):
-	""" returns the contents of a file """
-	with open(file, 'r') as f:
-		return f.read()
+from parta import convert, read_file
 
 def convert_hex(text):
 	""" Converts a string of hex values to a list of integers """

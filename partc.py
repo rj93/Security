@@ -1,7 +1,7 @@
 # python partc.py ciphertextfileA ciphertextfileB plaintextfileA
 
-from cipher import convert
-from partb import xor, convert_hex, read_file
+from parta import convert, read_file
+from partb import xor, convert_hex
 
 def recover_plaintext(ciphertext1, ciphertext2, plaintext1):
 	""" recovers the plaintext of ciphertext2 if both ciphertexts 
