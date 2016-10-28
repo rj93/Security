@@ -15,11 +15,13 @@ def read_file(file):
 		return f.read()
 
 def convert(s):
+	""" coverts the string to a list of integers """
     return [ord(c) for c in s]
 
 def decrypt(key, ciphertext):
+	""" decrypts the ciphertext with  using the key. Returns the plaintext """
     keystream = streamcipher(key)
-    return ''.join([chr(int(ciphertext[n:n+2], 16) ^ next(keystream)) for n in range(len(ciphertext)) if n % 2 == 0])
+    return ''.join([chr(int(ciphertext[n:n+2], 16) ^ next(keystream)) for n in range(len(ciphertext)) if n % 2 == 0]) 
 
 def brute_force(ciphertext, key_length=KEY_LENGTH, count=False):
 	""" brute forces the key of the ciphertext.
