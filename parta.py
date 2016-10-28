@@ -2,12 +2,16 @@
 
 import string, re, time
 from itertools import product
-from cipher import convert, decrypt
+from cipher import convert, streamcipher
 
-KEY_LENGTH = 4
+KEY_LENGTH = 6
 CHARS = string.ascii_lowercase
 
 regex = re.compile('^[\w\s.]+$')
+
+def decrypt(key, ciphertext):
+    keystream = streamcipher(key)
+    return ''.join([chr(int(ciphertext[n:n+2], 16) ^ next(keystream)) for n in range(len(ciphertext)) if n % 2 == 0])
 
 def brute_force(ciphertext, key_length=KEY_LENGTH, count=False):
 	""" brute forces the key of the ciphertext.
