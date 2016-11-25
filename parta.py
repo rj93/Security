@@ -7,7 +7,7 @@ from cipher import streamcipher
 KEY_LENGTH = 6
 CHARS = string.ascii_lowercase
 
-regex = re.compile('^[\w\s.,!?:;_\'\"\(\)\[\]\{\}\-]+$') # matches a-z, A-Z, 0-9, and .,!?:;'"()[]{}
+regex = re.compile('^[\w\s.,!?:;_\'\"\(\)\[\]\{\}\-]+$') # matches a-z, A-Z, 0-9, and .,!?:;'"()[]{}-
 
 def read_file(file):
 	""" returns the contents of a file """
