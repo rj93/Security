@@ -5,8 +5,9 @@ from itertools import product
 from cipher import streamcipher
 from multiprocessing import Pool, cpu_count
 
-PRCOESSES = max(cpu_count() - 1, 1) 
 KEY_LENGTH = 4
+PRCOESSES = max(cpu_count() - 1, 1)
+CHUNKSIZE = 100 # approximately how many products to submit to each of the processes at one time
 CHARS = string.ascii_lowercase
 
 regex = re.compile('^[\w\s.,!?:;_\'\"\(\)\[\]\{\}\-]+$') # matches a-z, A-Z, 0-9, any whitespace character, and .,!?:;'"()[]{}-
@@ -31,12 +32,15 @@ def attempt_decrypt(chars):
 	if accepted returns dictionary containing 
 	key and plaintext, otherwise returns None """
 
-	key = ''.join(chars)
-	plaintext = decrypt(convert(key), ciphertext)
-	if regex.search(plaintext) is not None:
-		return {'key' : key, 'plaintext' : plaintext}
+	try:
+		key = ''.join(chars)
+		plaintext = decrypt(convert(key), ciphertext)
+		if regex.search(plaintext) is not None:
+			return {'key' : key, 'plaintext' : plaintext}
+	except KeyboardInterrupt:
+		pool.terminate() 
 
-def brute_force(key_length=KEY_LENGTH, processes=PRCOESSES):
+def brute_force(key_length=KEY_LENGTH, processes=PRCOESSES, chunksize=CHUNKSIZE):
 	""" brute forces the key of the ciphertext.
 		Returns a dictionary with the key, plaintext,
 		key_attempts, total_time, and keys_per_second """
@@ -45,20 +49,23 @@ def brute_force(key_length=KEY_LENGTH, processes=PRCOESSES):
 	pool = Pool(processes=processes)
 	key_attempts = 0
 
-	start = time.time()
-	for result in pool.imap(attempt_decrypt, products): 
-		key_attempts = key_attempts + 1
-		if result:
-			break
-	total_time = round(time.time() - start, 2)
-	pool.close()
+	try:
+		start = time.time()
+		for result in pool.imap(attempt_decrypt, products, chunksize): 
+			key_attempts = key_attempts + 1
+			if result: 
+				break
+		total_time = round(time.time() - start, 2)
 
-	if result:
-		keys_per_sec = round(key_attempts / total_time)
-		result['key_attempts'] = key_attempts
-		result['total_time'] = total_time
-		result['keys_per_sec'] = keys_per_sec
-		return result
+		if result:
+			keys_per_sec = round(key_attempts / total_time)
+			result['key_attempts'] = key_attempts
+			result['total_time'] = total_time
+			result['keys_per_sec'] = keys_per_sec
+			return result
+	except KeyboardInterrupt:
+		pool.terminate() 
+		sys.exit()
 
 if __name__ == '__main__':
 	
