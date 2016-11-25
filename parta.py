@@ -4,10 +4,10 @@ import string, re, time
 from itertools import product
 from cipher import streamcipher
 
-KEY_LENGTH = 4
+KEY_LENGTH = 6
 CHARS = string.ascii_lowercase
 
-regex = re.compile('^[\w\s.]+$')
+regex = re.compile('^[\w\s.,!?:;_\'\"\(\)\[\]\{\}\-]+$') # matches a-z, A-Z, 0-9, and .,!?:;'"()[]{}
 
 def read_file(file):
 	""" returns the contents of a file """
@@ -16,12 +16,12 @@ def read_file(file):
 
 def convert(s):
 	""" coverts the string to a list of integers """
-    return [ord(c) for c in s]
+	return [ord(c) for c in s]
 
 def decrypt(key, ciphertext):
 	""" decrypts the ciphertext with  using the key. Returns the plaintext """
-    keystream = streamcipher(key)
-    return ''.join([chr(int(ciphertext[n:n+2], 16) ^ next(keystream)) for n in range(len(ciphertext)) if n % 2 == 0]) 
+	keystream = streamcipher(key)
+	return ''.join([chr(int(ciphertext[n:n+2], 16) ^ next(keystream)) for n in range(len(ciphertext)) if n % 2 == 0]) 
 
 def brute_force(ciphertext, key_length=KEY_LENGTH, count=False):
 	""" brute forces the key of the ciphertext.
