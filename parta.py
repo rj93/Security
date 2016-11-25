@@ -4,7 +4,7 @@ import string, re, time
 from itertools import product
 from cipher import streamcipher
 
-KEY_LENGTH = 6
+KEY_LENGTH = 4
 CHARS = string.ascii_lowercase
 
 regex = re.compile('^[\w\s.,!?:;_\'\"\(\)\[\]\{\}\-]+$') # matches a-z, A-Z, 0-9, and .,!?:;'"()[]{}-
