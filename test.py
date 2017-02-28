@@ -1,3 +1,0 @@
-from parta import brute_force
-
-print(brute_force("8241BC23586A43E8B0D3BEFE3EDF0A19799D7BABFD4239CB6FC3DE21B39BB4CF"))
